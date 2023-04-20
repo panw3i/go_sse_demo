@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>OpenAI GPT-3.5-turbo SSE Demo</title>
+</head>
+
+<body>
+	<h1>OpenAI GPT-3.5-turbo SSE Demo 2</h1>
+	<p>Generated content: <span id="content"></span></p>
+
+	<script>
+		const contentElem = document.getElementById('content');
+		let message = '';
+
+		const source = new EventSource('/sse');
+		source.onmessage = function (event) {
+			message += event.data + ' ';
+			const words = message.split(' ');
+			contentElem.innerHTML = words.join('&nbsp;');
+		};
+		source.onerror = function (error) {
+			console.error("SSE error:", error);
+			source.close();
+		};
+
+	</script>
+</body>
+
+</html>
