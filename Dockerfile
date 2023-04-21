@@ -1,6 +1,8 @@
 FROM golang
 
 WORKDIR /app
+# go proxy for china
+RUN go env -w GOPROXY=https://goproxy.cn
 
 COPY go.mod go.sum ./
 RUN go mod download
